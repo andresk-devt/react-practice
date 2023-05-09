@@ -45,8 +45,18 @@ const Form = () => {
       ...todo,
       id: taskId,
     }
-    localStorage.setItem(`task-${taskId}`, JSON.stringify(taskWithId));
+    saveTaskLocalStorage(taskWithId);
     setTodo({ title: '', taskDescription: '', done: false })
+  }
+
+  const saveTaskLocalStorage = (newTask) => {
+    const tasks = JSON.parse(localStorage.getItem('tasks'));
+    if (tasks) {
+      tasks.push(newTask);
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+      return;
+    }
+    localStorage.setItem('tasks', JSON.stringify([{ ...newTask }]));
   }
 
   return (
