@@ -1,0 +1,28 @@
+.card-task {
+  width: auto;
+  border: 1px solid grey;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 20px auto;
+}
+
+.button-container button:focus {
+  outline: none;
+}
+
+.button-container button:hover {
+  border-color: transparent;
+  opacity: .9;
+}
+
+.button-container button:nth-child(2) {
+  margin: 0px 15px;
+}
+
+.button-edit {
+  background: #F6C108;
+}
+
+.button-delete {
+  background: #DC3545;
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/List.css";
+import CardTask from "./CardTask";
 
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
@@ -19,7 +20,7 @@ const TodoList = () => {
         <h1>Todo list</h1>
         <ul className="tasks-list">
           {tasks.map((task) => (
-            <li key={task.id}>{ task.title }</li>
+            <CardTask task={task} key={task.id}></CardTask>
           ))}
         </ul>
       </div>

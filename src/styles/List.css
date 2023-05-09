@@ -1,7 +1,13 @@
 .todo-list-container {
   padding: 20px;
+  overflow: auto;
+  height: 90vh;
 }
 
 .todo-list-container h1 {
   text-decoration: underline;
+}
+
+.tasks-list {
+  padding: 0px;
 }
