@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/form.css";
+import "../styles/Form.css";
 
 const Form = () => {
   const [todo, setTodo] = useState({
@@ -22,26 +22,38 @@ const Form = () => {
   return (
     <>
       <form className="form-container">
-        <input
-          type="text"
-          name="title"
-          value={title}
-          onChange={(e) => handleTodo(e)}
-        />
-        <textarea
-          name="taskDescription"
-          id="description"
-          cols="30"
-          rows="10"
-          value={taskDescription}
-          onChange={(e) => handleTodo(e)}
-        ></textarea>
-        <input
-          name="done"
-          type="checkbox"
-          value={done}
-          onChange={(e) => handleTodo(e)}
-        />
+        <h1>Formulario</h1>
+        <div className="input-container">
+          <label htmlFor="title">Name of the task:</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            value={title}
+            onChange={(e) => handleTodo(e)}
+          />
+        </div>
+        <div className="input-container">
+          <label htmlFor="description">Description of the task:</label>
+          <textarea
+            name="taskDescription"
+            id="description"
+            rows="5"
+            value={taskDescription}
+            onChange={(e) => handleTodo(e)}
+          ></textarea>
+        </div>
+        <div className="input-container input-container--checkbox">
+          <label htmlFor="description">Complete task:</label>
+          <input
+            id="done"
+            name="done"
+            type="checkbox"
+            value={done}
+            onChange={(e) => handleTodo(e)}
+          />
+        </div>
+        <button className="form-button">Create</button>
       </form>
     </>
   );

@@ -1,4 +1,33 @@
 form {
   display: flex;
   flex-direction: column;
+  width: 60%;
+  margin: auto;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0px;
+}
+
+.input-container label {
+  font-weight: bold;
+}
+
+.input-container input,
+.input-container textarea {
+  padding: 10px;
+  font-family: 'Arial';
+}
+
+.input-container--checkbox {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+.form-button {
+  background: white;
+  color: #242424;
 }

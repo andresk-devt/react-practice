@@ -1,0 +1,13 @@
+.main-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+.main-container__content {
+  width: 50%;
+}
+.main-container__content--form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

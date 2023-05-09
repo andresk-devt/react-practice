@@ -1,12 +1,20 @@
-import Form from './components/FormComponent'
+import Form from "./components/FormComponent";
+import TodoList from "./components/TodoListComponent";
+import "./styles/App.css";
 
 function App() {
   return (
     <>
-      <h1>Todo Form</h1>
-      <Form></Form>
+      <main className="main-container">
+        <div className="main-container__content main-container__content--form">
+          <Form></Form>
+        </div>
+        <div className="main-container__content main-container__content--list">
+          <TodoList></TodoList>
+        </div>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
