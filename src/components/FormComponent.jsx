@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../styles/Form.css";
+import { v4 as uuidv4 } from 'uuid';
 
 const Form = () => {
   const [todo, setTodo] = useState({
@@ -8,20 +9,49 @@ const Form = () => {
     done: false,
   });
 
+  const [error, setError] = useState({
+    title: false,
+    taskDescription: false
+  });
+
   const { title, taskDescription, done } = todo;
 
   const handleTodo = (e) => {
     const { name, value, checked } = e.target;
-    console.log(name, "name bug");
     setTodo({
       ...todo,
       [name]: e.target.type !== "checkbox" ? value : checked,
     });
   };
 
+  const validateTodo = () => {
+    const updatedError = {
+      title: !todo.title.trim(),
+      taskDescription: !todo.taskDescription.trim()
+    };
+    setError(updatedError);
+    const hasError = Object.values(updatedError).some(value => value);
+    return !hasError;
+  };
+
+  const createTask = (e) => {
+    e.preventDefault();
+    const isValid = validateTodo();
+    if (!isValid) {
+      return;
+    }
+    const taskId = uuidv4();
+    const taskWithId = {
+      ...todo,
+      id: taskId,
+    }
+    localStorage.setItem(`task-${taskId}`, JSON.stringify(taskWithId));
+    setTodo({ title: '', taskDescription: '', done: false })
+  }
+
   return (
     <>
-      <form className="form-container">
+      <form className="form-container" onSubmit={(e) => createTask(e)}>
         <h1>Formulario</h1>
         <div className="input-container">
           <label htmlFor="title">Name of the task:</label>
@@ -29,6 +59,7 @@ const Form = () => {
             id="title"
             name="title"
             type="text"
+            className={error['title'] ? 'missing-field' : ''}
             value={title}
             onChange={(e) => handleTodo(e)}
           />
@@ -39,6 +70,7 @@ const Form = () => {
             name="taskDescription"
             id="description"
             rows="5"
+            className={error['taskDescription'] ? 'missing-field' : ''}
             value={taskDescription}
             onChange={(e) => handleTodo(e)}
           ></textarea>
@@ -53,7 +85,7 @@ const Form = () => {
             onChange={(e) => handleTodo(e)}
           />
         </div>
-        <button className="form-button">Create</button>
+        <button type="submit" className="form-button">Create</button>
       </form>
     </>
   );
