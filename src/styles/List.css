@@ -1,7 +1,7 @@
 .todo-list-container {
   padding: 20px;
   overflow: auto;
-  height: 90vh;
+  /* height: auto; */
 }
 
 .todo-list-container h1 {

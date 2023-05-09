@@ -19,9 +19,11 @@ const TodoList = () => {
       <div className="todo-list-container">
         <h1>Todo list</h1>
         <ul className="tasks-list">
-          {tasks.map((task) => (
-            <CardTask task={task} key={task.id}></CardTask>
-          ))}
+          {tasks
+            ? tasks.map((task) => (
+                <CardTask task={task} key={task.id}></CardTask>
+              ))
+            : <h3>There is not tasks to do</h3>}
         </ul>
       </div>
     </>
