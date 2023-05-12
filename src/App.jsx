@@ -20,22 +20,32 @@ const initialTaskList = [
 ];
 
 function App() {
-  const [tasks] = useState(initialTaskList);
-
+  const [tasks, setTasks] = useState(initialTaskList);
+  
   const initLocalStorage = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
+  const createNewTask = (task) => {
+    const { title, taskDescription, done } = task;
+    const newTask = {
+      id: tasks.length + 1,
+      title,
+      taskDescription,
+      done
+    }
+    setTasks((tasks) => [...tasks, newTask]);
+  }
+
   useEffect(() => {
-    initLocalStorage();
-    console.log('console log dimelo');
-  }, []);
+    initLocalStorage()
+  }, [tasks]);
 
   return (
     <>
       <main className="main-container">
         <div className="main-container__content main-container__content--form">
-          <Form></Form>
+          <Form createNewTask={createNewTask}></Form>
         </div>
         <div className="main-container__content main-container__content--list">
           <TodoList todoList={tasks} ></TodoList>

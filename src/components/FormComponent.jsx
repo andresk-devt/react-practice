@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "../styles/Form.css";
-import { v4 as uuidv4 } from 'uuid';
 
-const Form = () => {
+// eslint-disable-next-line react/prop-types
+const Form = ({ createNewTask }) => {
   const [todo, setTodo] = useState({
     title: "",
     taskDescription: "",
@@ -40,24 +40,18 @@ const Form = () => {
     if (!isValid) {
       return;
     }
-    const taskId = uuidv4();
-    const taskWithId = {
-      ...todo,
-      id: taskId,
-    }
-    saveTaskLocalStorage(taskWithId);
-    setTodo({ title: '', taskDescription: '', done: false })
+    createNewTask(todo)
   }
 
-  const saveTaskLocalStorage = (newTask) => {
-    const tasks = JSON.parse(localStorage.getItem('tasks'));
-    if (tasks) {
-      tasks.push(newTask);
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-      return;
-    }
-    localStorage.setItem('tasks', JSON.stringify([{ ...newTask }]));
-  }
+  // const saveTaskLocalStorage = (newTask) => {
+  //   const tasks = JSON.parse(localStorage.getItem('tasks'));
+  //   if (tasks) {
+  //     tasks.push(newTask);
+  //     localStorage.setItem('tasks', JSON.stringify(tasks));
+  //     return;
+  //   }
+  //   localStorage.setItem('tasks', JSON.stringify([{ ...newTask }]));
+  // }
 
   return (
     <>
