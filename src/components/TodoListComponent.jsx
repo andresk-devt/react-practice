@@ -1,29 +1,18 @@
-import { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
 import "../styles/List.css";
 import CardTask from "./CardTask";
 
-const TodoList = () => {
-  const [tasks, setTasks] = useState([]);
-
-  useEffect(() => {
-    getTasks();
-  }, []);
-
-  const getTasks = () => {
-    const tasks = JSON.parse(localStorage.getItem("tasks"));
-    setTasks(tasks);
-  };
-
+const TodoList = ({ todoList }) => {
   return (
     <>
       <div className="todo-list-container">
         <h1>Todo list</h1>
         <ul className="tasks-list">
-          {tasks
-            ? tasks.map((task) => (
-                <CardTask task={task} key={task.id}></CardTask>
-              ))
-            : <h3>There is not tasks to do</h3>}
+          {todoList ? (
+            todoList.map((task) => <CardTask task={task} key={task.id}></CardTask>)
+          ) : (
+            <h3>There is not tasks to do</h3>
+          )}
         </ul>
       </div>
     </>
