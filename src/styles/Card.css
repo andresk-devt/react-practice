@@ -6,6 +6,10 @@
   margin: 20px auto;
 }
 
+.is-done {
+  text-decoration: line-through;
+}
+
 .button-container button:focus {
   outline: none;
 }

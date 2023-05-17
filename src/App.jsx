@@ -8,7 +8,7 @@ const initialTaskList = [
     id: 0,
     title: "Learn react framework",
     taskDescription: "View courses, read documentation about react",
-    done: true,
+    done: false,
   },
   {
     id: 1,

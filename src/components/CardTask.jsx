@@ -4,7 +4,7 @@ import "../styles/Card.css";
 const CardTask = ({ task, editTask }) => {
   return (
     <>
-      <div className="card-task">
+      <div className={`card-task ${task.done ? 'is-done' : ''}`}>
         <h2>{task.title}</h2>
         <p>{task.taskDescription}</p>
         <div className="button-container">
