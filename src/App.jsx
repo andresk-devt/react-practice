@@ -21,7 +21,7 @@ const initialTaskList = [
 
 function App() {
   const [tasks, setTasks] = useState(initialTaskList);
-  
+
   const initLocalStorage = () => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   };
@@ -32,13 +32,26 @@ function App() {
       id: tasks.length + 1,
       title,
       taskDescription,
-      done
-    }
+      done,
+    };
     setTasks((tasks) => [...tasks, newTask]);
-  }
+  };
+
+  const editTask = (task) => {
+    const { id } = task;
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((el) => {
+        if (el.id === id) {
+          return task;
+        }
+        return el;
+      });
+      return updatedTasks;
+    });
+  };
 
   useEffect(() => {
-    initLocalStorage()
+    initLocalStorage();
   }, [tasks]);
 
   return (
@@ -48,7 +61,7 @@ function App() {
           <Form createNewTask={createNewTask}></Form>
         </div>
         <div className="main-container__content main-container__content--list">
-          <TodoList todoList={tasks} ></TodoList>
+          <TodoList todoList={tasks} editTask={editTask}></TodoList>
         </div>
       </main>
     </>
