@@ -1,8 +1,9 @@
-import { useState } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import "../styles/Form.css";
 
 // eslint-disable-next-line react/prop-types
-const Form = ({ createNewTask }) => {
+const Form = ({ createNewTask, task }) => {
   const [todo, setTodo] = useState({
     title: "",
     taskDescription: "",
@@ -11,8 +12,10 @@ const Form = ({ createNewTask }) => {
 
   const [error, setError] = useState({
     title: false,
-    taskDescription: false
+    taskDescription: false,
   });
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const { title, taskDescription, done } = todo;
 
@@ -27,26 +30,51 @@ const Form = ({ createNewTask }) => {
   const validateTodo = () => {
     const updatedError = {
       title: !todo.title.trim(),
-      taskDescription: !todo.taskDescription.trim()
+      taskDescription: !todo.taskDescription.trim(),
     };
     setError(updatedError);
-    const hasError = Object.values(updatedError).some(value => value);
+    const hasError = Object.values(updatedError).some((value) => value);
     return !hasError;
   };
 
-  const createTask = (e) => {
+  const handleFormTask = (e) => {
     e.preventDefault();
     const isValid = validateTodo();
     if (!isValid) {
       return;
     }
-    createNewTask(todo)
-    setTodo({ title: "", taskDescription: "", done: false })
-  }
+    if (!isEditMode) {
+      createNewTask(todo);
+      // console.log('its a edit mode functionality');
+      return;
+    }
+    // edit code... functionality
+    setTodo({ title: "", taskDescription: "", done: false });
+  };
+
+  const hasATaskToEdit = () => {
+    return Object.keys(task).length > 0;
+  };
+
+  const isEditMode = () => {
+    const editMode = hasATaskToEdit();
+    if (editMode) {
+      const { title, taskDescription, done } = task;
+      console.log(title, taskDescription, done);
+      setTodo(task);
+    }
+  };
+
+  useEffect(() => {
+    setIsEdit(hasATaskToEdit());
+    if (isEdit) {
+      setTodo(task);
+    }
+  }, [task, isEdit]);
 
   return (
     <>
-      <form className="form-container" onSubmit={(e) => createTask(e)}>
+      <form className="form-container" onSubmit={(e) => handleFormTask(e)}>
         <h1>Formulario</h1>
         <div className="input-container">
           <label htmlFor="title">Name of the task:</label>
@@ -54,7 +82,7 @@ const Form = ({ createNewTask }) => {
             id="title"
             name="title"
             type="text"
-            className={error['title'] ? 'missing-field' : ''}
+            className={error["title"] ? "missing-field" : ""}
             value={title}
             onChange={(e) => handleTodo(e)}
           />
@@ -65,7 +93,7 @@ const Form = ({ createNewTask }) => {
             name="taskDescription"
             id="description"
             rows="5"
-            className={error['taskDescription'] ? 'missing-field' : ''}
+            className={error["taskDescription"] ? "missing-field" : ""}
             value={taskDescription}
             onChange={(e) => handleTodo(e)}
           ></textarea>
@@ -80,7 +108,9 @@ const Form = ({ createNewTask }) => {
             onChange={(e) => handleTodo(e)}
           />
         </div>
-        <button type="submit" className="form-button">Create</button>
+        <button type="submit" className="form-button">
+          {isEdit ? "Editar" : "Crear"}
+        </button>
       </form>
     </>
   );
